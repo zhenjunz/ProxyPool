@@ -77,11 +77,11 @@ class RedisClient(object):
         :return: new score
         """
         if IS_REDIS_VERSION_2:
-            self.db.zincrby(REDIS_KEY, proxy.string(), -1)
+            self.db.zincrby(REDIS_KEY, proxy.string(), -10)
         else:
-            self.db.zincrby(REDIS_KEY, -1, proxy.string())
+            self.db.zincrby(REDIS_KEY, -10, proxy.string())
         score = self.db.zscore(REDIS_KEY, proxy.string())
-        logger.info(f'{proxy.string()} score decrease 1, current {score}')
+        logger.info(f'{proxy.string()} score decrease 10, current {score}')
         if score <= PROXY_SCORE_MIN:
             logger.info(f'{proxy.string()} current score {score}, remove')
             self.db.zrem(REDIS_KEY, proxy.string())
@@ -117,7 +117,8 @@ class RedisClient(object):
         get all proxies
         :return: list of proxies
         """
-        return convert_proxy_or_proxies(self.db.zrangebyscore(REDIS_KEY, PROXY_SCORE_MIN, PROXY_SCORE_MAX))
+        # return convert_proxy_or_proxies(self.db.zrangebyscore(REDIS_KEY, PROXY_SCORE_MIN, PROXY_SCORE_MAX))
+        return convert_proxy_or_proxies(self.db.zrangebyscore(REDIS_KEY, PROXY_SCORE_MAX, PROXY_SCORE_MAX))
 
     def batch(self, cursor, count) -> List[Proxy]:
         """

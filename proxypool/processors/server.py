@@ -1,4 +1,4 @@
-from flask import Flask, g
+from flask import Flask, g, make_response
 from proxypool.storages.redis import RedisClient
 from proxypool.setting import API_HOST, API_PORT, API_THREADED, IS_DEV
 
@@ -50,9 +50,13 @@ def get_proxy_all():
     proxies_string = ''
     if proxies:
         for proxy in proxies:
-            proxies_string += str(proxy) + '\n'
-
-    return proxies_string
+            proxies_string += (str(proxy) + '\n')
+    response = make_response(proxies_string, 200)
+    response.headers["Content-Type"] = "text/plain"
+    response.headers["Accept"] = "text/plain"
+    return response
+        # return Response(proxies_string, "text/plain")
+    # return proxies_string
 
 
 @app.route('/count')

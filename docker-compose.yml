@@ -6,6 +6,7 @@ services:
     # ports:
     #   - "6374:6379"
   proxypool:
+    build: .
     image: "germey/proxypool:master"
     container_name: proxypool
     ports:
@@ -15,4 +16,4 @@ services:
     #   - proxypool/crawlers/private:/app/proxypool/crawlers/private
     environment:
       PROXYPOOL_REDIS_HOST: redis4proxypool
-      
+
