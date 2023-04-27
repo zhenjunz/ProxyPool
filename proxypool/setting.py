@@ -53,9 +53,9 @@ REDIS_KEY = env.str('PROXYPOOL_REDIS_KEY', env.str(
     'REDIS_KEY', 'proxies:universal'))
 
 # definition of proxy scores
-PROXY_SCORE_MAX = 50
+PROXY_SCORE_MAX = 30
 PROXY_SCORE_MIN = 0
-PROXY_SCORE_INIT = 20
+PROXY_SCORE_INIT = 10
 
 # definition of proxy number
 PROXY_NUMBER_MAX = 50000
@@ -64,13 +64,13 @@ PROXY_NUMBER_MIN = 0
 # definition of tester cycle, it will test every CYCLE_TESTER second
 CYCLE_TESTER = env.int('CYCLE_TESTER', 20)
 # definition of getter cycle, it will get proxy every CYCLE_GETTER second
-CYCLE_GETTER = env.int('CYCLE_GETTER', 60 * 60)
+CYCLE_GETTER = env.int('CYCLE_GETTER', 4 * 60)
 GET_TIMEOUT = env.int('GET_TIMEOUT', 10)
 
 # definition of tester
 TEST_URL = env.str('TEST_URL', 'http://www.baidu.com')
 TEST_TIMEOUT = env.int('TEST_TIMEOUT', 10)
-TEST_BATCH = env.int('TEST_BATCH', 20)
+TEST_BATCH = env.int('TEST_BATCH', 50)
 # only save anonymous proxy
 TEST_ANONYMOUS = env.bool('TEST_ANONYMOUS', True)
 # TEST_HEADERS = env.json('TEST_HEADERS', {
